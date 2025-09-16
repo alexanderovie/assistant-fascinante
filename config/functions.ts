@@ -2,26 +2,34 @@
 // Define one function per tool call - each tool call should have a matching function
 // Parameters for a tool call are passed as an object to the corresponding function
 
-export const get_weather = async ({
-  location,
-  unit,
+export const get_keyword_volume = async ({
+  keywords,
 }: {
-  location: string;
-  unit: string;
+  keywords: string;
 }) => {
   const res = await fetch(
-    `/api/functions/get_weather?location=${location}&unit=${unit}`
+    `/api/functions/get_keyword_volume?keywords=${encodeURIComponent(keywords)}`
   ).then((res) => res.json());
 
   return res;
 };
 
-export const get_joke = async () => {
-  const res = await fetch(`/api/functions/get_joke`).then((res) => res.json());
+export const get_serp_results = async ({
+  query,
+  location,
+}: {
+  query: string;
+  location?: string;
+}) => {
+  const locationParam = location ? `&location=${encodeURIComponent(location)}` : '';
+  const res = await fetch(
+    `/api/functions/get_serp_results?query=${encodeURIComponent(query)}${locationParam}`
+  ).then((res) => res.json());
+
   return res;
 };
 
 export const functionsMap = {
-  get_weather: get_weather,
-  get_joke: get_joke,
+  get_keyword_volume: get_keyword_volume,
+  get_serp_results: get_serp_results,
 };

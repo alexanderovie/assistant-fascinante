@@ -4,23 +4,28 @@
 
 export const toolsList = [
   {
-    name: "get_weather",
-    description: "Get the weather for a given location",
+    name: "get_keyword_volume",
+    description: "Get search volume data for keywords using DataForSEO",
     parameters: {
-      location: {
+      keywords: {
         type: "string",
-        description: "Location to get weather for",
-      },
-      unit: {
-        type: "string",
-        description: "Unit to get weather in",
-        enum: ["celsius", "fahrenheit"],
+        description: "Comma-separated list of keywords to analyze (e.g., 'seo, marketing, digital')",
       },
     },
   },
   {
-    name: "get_joke",
-    description: "Get a programming joke",
-    parameters: {},
+    name: "get_serp_results",
+    description: "Get Google search results (SERP) for a query using DataForSEO",
+    parameters: {
+      query: {
+        type: "string",
+        description: "Search query to analyze",
+      },
+      location: {
+        type: "string",
+        description: "Location for search results (e.g., 'United States', 'Spain')",
+        optional: true,
+      },
+    },
   },
 ];
