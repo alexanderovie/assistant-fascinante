@@ -28,4 +28,64 @@ export const toolsList = [
       },
     },
   },
+  {
+    name: "get_ranked_keywords",
+    description: "Get keywords that a domain ranks for (competitor analysis)",
+    parameters: {
+      domain: {
+        type: "string",
+        description: "Domain to analyze (e.g., 'competitor.com')",
+      },
+      limit: {
+        type: "number",
+        description: "Maximum number of keywords to return (default: 20)",
+        optional: true,
+      },
+    },
+  },
+  {
+    name: "get_keyword_ideas",
+    description: "Get related keyword ideas based on seed keywords",
+    parameters: {
+      keywords: {
+        type: "string",
+        description: "Comma-separated list of seed keywords (e.g., 'restaurant, food, dining')",
+      },
+      limit: {
+        type: "number",
+        description: "Maximum number of ideas to return (default: 20)",
+        optional: true,
+      },
+    },
+  },
+  {
+    name: "get_keyword_difficulty",
+    description: "Get keyword difficulty scores for ranking analysis",
+    parameters: {
+      keywords: {
+        type: "string",
+        description: "Comma-separated list of keywords to analyze difficulty",
+      },
+    },
+  },
+  {
+    name: "get_domain_analysis",
+    description: "Get comprehensive domain analysis including traffic and ranking data",
+    parameters: {
+      domain: {
+        type: "string",
+        description: "Domain to analyze (e.g., 'competitor.com')",
+      },
+    },
+  },
+  {
+    name: "get_backlinks_analysis",
+    description: "Get backlinks analysis for a domain",
+    parameters: {
+      domain: {
+        type: "string",
+        description: "Domain to analyze backlinks (e.g., 'competitor.com')",
+      },
+    },
+  },
 ];
