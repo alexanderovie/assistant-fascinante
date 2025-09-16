@@ -20,13 +20,15 @@ export async function GET(request: Request) {
 
     // Procesar la respuesta
     if (result.success && result.data && result.data.length > 0) {
+      const difficultyData = result.data[0];
+      
       // Formatear los datos para el chat
-      const formattedData = result.data.map((item: any) => ({
+      const formattedData = difficultyData.items?.map((item: any) => ({
         keyword: item.keyword || 'N/A',
         difficulty: item.keyword_difficulty || 0,
         difficulty_level: item.keyword_difficulty < 30 ? 'Easy' : 
                          item.keyword_difficulty < 70 ? 'Medium' : 'Hard'
-      }));
+      })) || [];
 
       return new Response(JSON.stringify({
         success: true,

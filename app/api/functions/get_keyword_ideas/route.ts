@@ -21,14 +21,17 @@ export async function GET(request: Request) {
 
     // Procesar la respuesta
     if (result.success && result.data && result.data.length > 0) {
+      const keywordData = result.data[0];
+      
       // Formatear los datos para el chat
-      const formattedData = result.data.map((item: any) => ({
-        keyword: item.keyword_data?.keyword_info?.keyword || 'N/A',
-        search_volume: item.keyword_data?.keyword_info?.search_volume || 0,
-        competition: item.keyword_data?.keyword_info?.competition_level || 'unknown',
-        cpc: item.keyword_data?.keyword_info?.cpc || 0,
-        relevance: item.relevance || 0
-      }));
+      const formattedData = keywordData.items?.map((item: any) => ({
+        keyword: item.keyword || 'N/A',
+        search_volume: item.keyword_info?.search_volume || 0,
+        competition: item.keyword_info?.competition_level || 'unknown',
+        cpc: item.keyword_info?.cpc || 0,
+        difficulty: item.keyword_properties?.keyword_difficulty || 0,
+        intent: item.search_intent_info?.main_intent || 'unknown'
+      })) || [];
 
       return new Response(JSON.stringify({
         success: true,

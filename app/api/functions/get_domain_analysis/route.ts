@@ -32,7 +32,8 @@ export async function GET(request: Request) {
           position_11_20: domainData.rank_info?.organic?.pos_11_20 || 0,
           position_21_50: domainData.rank_info?.organic?.pos_21_50 || 0,
           position_51_100: domainData.rank_info?.organic?.pos_51_100 || 0
-        }
+        },
+        metrics: domainData.rank_info || {}
       };
 
       return new Response(JSON.stringify({
