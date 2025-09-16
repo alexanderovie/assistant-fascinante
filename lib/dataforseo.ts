@@ -353,7 +353,7 @@ export class DataForSEOClient {
       }
 
       const data = await response.json();
-      
+
       if (data.status_code !== 20000) {
         throw new Error(`DataForSEO API error: ${data.status_message}`);
       }
@@ -369,6 +369,86 @@ export class DataForSEOClient {
       return { success: false, message: 'No backlinks data found' };
     } catch (error) {
       console.error('Error getting backlinks summary:', error);
+      throw error;
+    }
+  }
+
+  async googleMyBusinessInfo(keyword: string, location: string = 'United States'): Promise<any> {
+    try {
+      const response = await fetch(`${this.baseUrl}/business_data/google/my_business_info/task_post`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Basic ${this.auth}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify([
+          {
+            keyword: keyword,
+            location_name: location,
+            language_code: 'en'
+          }
+        ])
+      });
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(`DataForSEO Google My Business API error: ${response.status} - ${errorText}`);
+      }
+
+      const data = await response.json();
+
+      if (data.status_code !== 20000) {
+        throw new Error(`DataForSEO API error: ${data.status_message}`);
+      }
+
+      if (data.tasks && data.tasks.length > 0) {
+        return {
+          success: true,
+          task_id: data.tasks[0].id,
+          data: data.tasks[0],
+          cost: data.cost
+        };
+      }
+
+      return { success: false, message: 'No Google My Business data found' };
+    } catch (error) {
+      console.error('Error getting Google My Business info:', error);
+      throw error;
+    }
+  }
+
+  async getGoogleMyBusinessResults(taskId: string): Promise<any> {
+    try {
+      const response = await fetch(`${this.baseUrl}/business_data/google/my_business_info/task_get/${taskId}`, {
+        method: 'GET',
+        headers: {
+          'Authorization': `Basic ${this.auth}`,
+          'Content-Type': 'application/json',
+        }
+      });
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(`DataForSEO Google My Business Results API error: ${response.status} - ${errorText}`);
+      }
+
+      const data = await response.json();
+
+      if (data.status_code !== 20000) {
+        throw new Error(`DataForSEO API error: ${data.status_message}`);
+      }
+
+      if (data.tasks && data.tasks.length > 0 && data.tasks[0].result) {
+        return {
+          success: true,
+          data: data.tasks[0].result,
+          cost: data.cost
+        };
+      }
+
+      return { success: false, message: 'No Google My Business results found' };
+    } catch (error) {
+      console.error('Error getting Google My Business results:', error);
       throw error;
     }
   }

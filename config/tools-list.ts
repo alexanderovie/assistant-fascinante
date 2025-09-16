@@ -78,14 +78,39 @@ export const toolsList = [
       },
     },
   },
-  {
-    name: "get_backlinks_analysis",
-    description: "Get backlinks analysis for a domain",
-    parameters: {
-      domain: {
-        type: "string",
-        description: "Domain to analyze backlinks (e.g., 'competitor.com')",
+      {
+        name: "get_backlinks_analysis",
+        description: "Get backlinks analysis for a domain",
+        parameters: {
+          domain: {
+            type: "string",
+            description: "Domain to analyze backlinks (e.g., 'competitor.com')",
+          },
+        },
       },
-    },
-  },
-];
+      {
+        name: "get_google_my_business_info",
+        description: "Get Google My Business information for a local business",
+        parameters: {
+          keyword: {
+            type: "string",
+            description: "Business name or keyword to search (e.g., 'Pizza Palace', 'Best Restaurant')",
+          },
+          location: {
+            type: "string",
+            description: "Location for the search (e.g., 'New York, NY', 'Miami, FL')",
+            optional: true,
+          },
+        },
+      },
+      {
+        name: "get_google_my_business_results",
+        description: "Get results from a Google My Business search task",
+        parameters: {
+          task_id: {
+            type: "string",
+            description: "Task ID from get_google_my_business_info response",
+          },
+        },
+      },
+    ];

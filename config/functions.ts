@@ -95,6 +95,33 @@ export const get_backlinks_analysis = async ({
   return res;
 };
 
+export const get_google_my_business_info = async ({
+  keyword,
+  location,
+}: {
+  keyword: string;
+  location?: string;
+}) => {
+  const locationParam = location ? `&location=${encodeURIComponent(location)}` : '';
+  const res = await fetch(
+    `/api/functions/get_google_my_business_info?keyword=${encodeURIComponent(keyword)}${locationParam}`
+  ).then((res) => res.json());
+
+  return res;
+};
+
+export const get_google_my_business_results = async ({
+  task_id,
+}: {
+  task_id: string;
+}) => {
+  const res = await fetch(
+    `/api/functions/get_google_my_business_results?task_id=${encodeURIComponent(task_id)}`
+  ).then((res) => res.json());
+
+  return res;
+};
+
 export const functionsMap = {
   get_keyword_volume: get_keyword_volume,
   get_serp_results: get_serp_results,
@@ -103,4 +130,6 @@ export const functionsMap = {
   get_keyword_difficulty: get_keyword_difficulty,
   get_domain_analysis: get_domain_analysis,
   get_backlinks_analysis: get_backlinks_analysis,
+  get_google_my_business_info: get_google_my_business_info,
+  get_google_my_business_results: get_google_my_business_results,
 };
