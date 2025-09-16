@@ -44,11 +44,11 @@ export async function getGoogleClient(): Promise<Configuration> {
 }
 
 export function getRedirectUri(): string {
-  const { GOOGLE_REDIRECT_URI } = process.env as Record<
+  const { GOOGLE_REDIRECT_URI, OAUTH_REDIRECT_URI } = process.env as Record<
     string,
     string | undefined
   >;
-  return GOOGLE_REDIRECT_URI || "http://localhost:3000/api/google/callback";
+  return GOOGLE_REDIRECT_URI || OAUTH_REDIRECT_URI || "http://localhost:3001/api/google/callback";
 }
 
 // Refresh when close to expiry (30s) or when missing access token but we have a refresh token
