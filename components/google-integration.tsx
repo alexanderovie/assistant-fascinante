@@ -37,15 +37,11 @@ export default function GoogleIntegrationPanel() {
           {oauthConfigured ? (
             googleIntegrationEnabled ? (
               <a href="/api/google/auth">
-                <Button className="bg-red-600 hover:bg-red-700 text-white font-semibold px-6 py-2 rounded-lg shadow-lg transition-all duration-200 hover:shadow-xl">
-                  🔗 Connect Google Integration
-                </Button>
+                <Button>Connect Google Integration</Button>
               </a>
             ) : (
               <span className="inline-flex">
-                <Button disabled className="bg-gray-400 text-white font-semibold px-6 py-2 rounded-lg">
-                  Connect Google Integration
-                </Button>
+                <Button disabled>Connect Google Integration</Button>
               </span>
             )
           ) : (
